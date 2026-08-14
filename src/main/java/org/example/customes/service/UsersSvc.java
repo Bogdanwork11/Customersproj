@@ -1,6 +1,11 @@
 package org.example.customes.service;
 
 import java.io.IOException;
+import java.time.LocalDate;
+
+import org.example.customes.entity.Employees;
+import org.example.customes.entity.StatusJob;
+import org.example.customes.repository.StatusRp;
 import org.example.customes.repository.UsersRp;
 import org.example.customes.role.Role;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -12,25 +17,44 @@ import org.example.customes.entity.Users;
 @Service
 public class UsersSvc {
     private final UsersRp usersRepository;
+    private final StatusRp statusRepository;
 
-    public UsersSvc(UsersRp usersRepository){
+    public UsersSvc(UsersRp usersRepository, StatusRp statusRepository){
         this.usersRepository = usersRepository;
+        this.statusRepository = statusRepository;
     }
 
     @EventListener(ApplicationReadyEvent.class)
     public void loadUsers() {
+
+
+
+
+        //-----developer-----
         Users developer = new Users();
-        developer.setId(1);
         developer.setEmail("Bogdankosyanenko@icloud.com");
         developer.setPassword("28085678");
-        developer.setFio("Косьяненко Богдан Владимирович");
-        developer.setDataBirth("29-05-2006");
-        developer.setJob("Java Developer");
-        developer.setStatusJob("juniorDeveloper");
-        developer.setNumber("+998 55 999 99 99");
         developer.setRole(Role.DEVELOPER);
-        developer.setPhoto(getPhotoBytes("images/bogdan.jpg"));
         usersRepository.save(developer);
+
+        Employees employeesDeveloper = new Employees();
+        employeesDeveloper.setUserId(developer);
+        employeesDeveloper.setFullName("Косьяненко Богдан Владимирович");
+        employeesDeveloper.setBirthDate(LocalDate.of(2006 ,5, 29));
+        employeesDeveloper.setPhoneNumber("+998 55 999 99 99");
+        //прогружается с repo а репо в sql status не забууууудь
+        StatusJob developerStatus = statusRepository.findByTitleSt("Developer");
+        employeesDeveloper.setStatusJob(developerStatus);
+        employeesDeveloper.setPhoto(getPhotoBytes("images/bogdan.jpg"));
+
+
+
+
+
+
+
+
+
 
         Users user = new Users();
         user.setId(2);
@@ -38,7 +62,7 @@ public class UsersSvc {
         user.setPassword("12345678");
         user.setFio("Павлов Эмир Эдуардович");
         user.setDataBirth("09-05-2000");
-        user.setJob("Java Developer");
+        user.setJob("Devops");
         user.setStatusJob("client");
         user.setNumber("+998 77 999 99 99");
         user.setRole(Role.USER);
@@ -51,7 +75,7 @@ public class UsersSvc {
         hr.setPassword("12345678");
         hr.setFio("Ашотикова Люся Дмитриевна");
         hr.setDataBirth("04-03-2001");
-        hr.setJob("Java Developer");
+        hr.setJob("HR");
         hr.setStatusJob("hr");
         hr.setNumber("+998 88 999 99 99");
         hr.setRole(Role.HR);
@@ -98,6 +122,7 @@ public class UsersSvc {
         usersRepository.save(teamlead);
 
     }
+    //документация если забуду про метод начала чтения фото файла https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/core/io/ClassPathResource.html#%3Cinit%3E(java.lang.String)
     private byte[] getPhotoBytes(String path) {
         try {
             ClassPathResource resource = new ClassPathResource(path);
