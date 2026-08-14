@@ -17,30 +17,11 @@ public class Users {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "Email", nullable = false)
+    @Column(name = "email", nullable = false)
     private String email;
 
-    @Column(name = "Password", nullable = false)
+    @Column(name = "password", nullable = false)
     private String password;
-
-    @Column(name = "FIO", nullable = false)
-    private String fio;
-
-    @Column(name = "DataBirth", nullable = false)
-    private String dataBirth;
-
-    @Column(name = "Job", nullable = false)
-    private String job;
-
-    @Column(name = "Number", nullable = false)
-    private String number;
-
-    @Lob
-    @Column(name = "Photo", nullable = false, columnDefinition = "LONGBLOB") // для MySQL/PostgreSQL
-    private byte[] photo;
-
-    @Column(name = "StatusJob", nullable = false)
-    private String statusJob;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "Role", nullable = false)
