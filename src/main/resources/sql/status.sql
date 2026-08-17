@@ -1,5 +1,0 @@
-INSERT INTO status_job (title) VALUES ('Developer')
-INSERT INTO status_job (title) VALUES ('Devops')
-INSERT INTO status_job (title) VALUES ('HR')
-INSERT INTO status_job (title) VALUES ('Recruiter')
-INSERT INTO status_job (title) VALUES ('TeamLead')
