@@ -153,40 +153,37 @@ public class UsersSvc {
 
         employeesRepository.save(employeesDevops);
 
+        //-----time lead-----
+
+        Users teamlead = new Users();
+        teamlead.setEmail("Bogdankosyanenko@icloud.com");
+        teamlead.setPassword("28085678");
+        teamlead.setRole(Role.TEAMLEAD);
+        usersRepository.save(teamlead);
+
+        Vacations vacations4 = new Vacations();
+        vacations4.setStartDate(LocalDate.of(2026, 4, 1));
+        vacations4.setEndDate(LocalDate.of(2026, 4, 11));
+        vacationRepository.save(vacations4);
+
+        Employees employeesTeamlead = new Employees();
+        employeesTeamlead.setUserId(teamlead);
+        employeesTeamlead.setFullName("Статик Джейсон Эдуардович");
+        employeesTeamlead.setBirthDate(LocalDate.of(1977, 1, 2));
+        employeesTeamlead.setPhoneNumber("+998 90 999 99 99");
+
+        StatusJob teamleadStatus = statusRepository.findByTitleSt("TeamLead");
+        employeesTeamlead.setStatusJob(teamleadStatus);
+
+        Departament teamleadDp = departamentRepository.findByTitleDp("IT");
+        employeesTeamlead.setDepartamentId(teamleadDp);
+
+        employeesTeamlead.setVacationId(vacations4);
+
+        employeesTeamlead.setPhoto(getPhotoBytes("images/static.jpg"));
+        employeesRepository.save(employeesTeamlead);
 
 
-
-
-
-
-
-
-//        Users recruiter = new Users();
-//        recruiter.setId(4);
-//        recruiter.setEmail("emirmus69@gmail.com");
-//        recruiter.setPassword("12345678");
-//        recruiter.setFio("Галустян Денис Валентинович");
-//        recruiter.setDataBirth("31-12-1999");
-//        recruiter.setJob("Java Developer");
-//        recruiter.setStatusJob("recruiter");
-//        recruiter.setNumber("+998 91 999 99 99");
-//        recruiter.setRole(Role.RECRUITER);
-//        recruiter.setPhoto(getPhotoBytes("images/Deniska.jpg"));
-//        usersRepository.save(recruiter);
-//
-//        Users devops = new Users();
-//        devops.setId(5);
-//        devops.setEmail("emirmus69@gmail.com");
-//        devops.setPassword("12345678");
-//        devops.setFio("Джасурова Алёна Магомедовна");
-//        devops.setDataBirth("22-02-2002");
-//        devops.setJob("Java Developer");
-//        devops.setStatusJob("devops");
-//        devops.setNumber("+998 93 999 99 99");
-//        devops.setRole(Role.DEVOPS);
-//        devops.setPhoto(getPhotoBytes("images/Alenka.jpg"));
-//        usersRepository.save(devops);
-//
 //        Users teamlead = new Users();
 //        teamlead.setId(6);
 //        teamlead.setEmail("emirmus69@gmail.com");
