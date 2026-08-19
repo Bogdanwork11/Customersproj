@@ -1,8 +1,5 @@
 package org.example.customes.service;
 
-import java.io.IOException;
-import java.time.LocalDate;
-
 import org.example.customes.entity.*;
 import org.example.customes.repository.*;
 import org.example.customes.role.Role;
@@ -11,7 +8,8 @@ import org.springframework.context.event.EventListener;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
-import static org.aspectj.weaver.tools.cache.SimpleCacheFactory.path;
+import java.io.IOException;
+import java.time.LocalDate;
 
 @Service
 public class UsersSvc {
@@ -77,7 +75,7 @@ public class UsersSvc {
 
         Employees employeesHr = new Employees();
         employeesHr.setUserId(hr);
-        employeesHr.setFullName("Павлов Эмир Эдуардович");
+        employeesHr.setFullName("Павлов Эмир Эдуардов ич");
         employeesHr.setBirthDate(LocalDate.of(2000, 5, 9));
         employeesHr.setPhoneNumber("+998 77 999 99 99");
 
@@ -153,10 +151,10 @@ public class UsersSvc {
 
         employeesRepository.save(employeesDevops);
 
-        //-----time lead-----
+        //-----team lead-----
 
         Users teamlead = new Users();
-        teamlead.setEmail("Bogdankosyanenko@icloud.com");
+        teamlead.setEmail("Bogdankkkkkosyanenko@icloud.com");
         teamlead.setPassword("28085678");
         teamlead.setRole(Role.TEAMLEAD);
         usersRepository.save(teamlead);
@@ -183,20 +181,6 @@ public class UsersSvc {
         employeesTeamlead.setPhoto(getPhotoBytes("images/static.jpg"));
         employeesRepository.save(employeesTeamlead);
 
-
-//        Users teamlead = new Users();
-//        teamlead.setId(6);
-//        teamlead.setEmail("emirmus69@gmail.com");
-//        teamlead.setPassword("12345678");
-//        teamlead.setFio("Альпенгольтовна Маша Михайловна");
-//        teamlead.setDataBirth("22-02-1956");
-//        teamlead.setJob("Java Developer");
-//        teamlead.setStatusJob("teamlead");
-//        teamlead.setNumber("+998 90 999 99 99");
-//        teamlead.setRole(Role.TEAMLEAD);
-//        teamlead.setPhoto(getPhotoBytes("images/static.jpg"));
-//        usersRepository.save(teamlead);
-//
 }
     //документация если забуду про метод начала чтения фото файла https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/core/io/ClassPathResource.html#%3Cinit%3E(java.lang.String)
     private byte[] getPhotoBytes(String path) {
