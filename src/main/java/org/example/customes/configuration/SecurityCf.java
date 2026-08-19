@@ -31,8 +31,12 @@ public class SecurityCf {
                 )
                 .authorizeHttpRequests(auth -> auth
 
+                        .requestMatchers(HttpMethod.POST,"/customers/create")
+                        .hasRole("DEVELOPER")
+
                         .requestMatchers("/info").permitAll() //разраешает доступ без аунтефикации осталбное с аутентификацией
                         .requestMatchers("/photo/**").permitAll()
+                        .requestMatchers("/oauth2/**").permitAll()
                         .anyRequest().authenticated()
 
 
