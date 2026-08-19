@@ -44,7 +44,7 @@ public class JwtFt extends OncePerRequestFilter {
             System.out.println("Jwt был найден в jwtft файле: ");
             String token = authHeader.substring(7);
 
-            System.out.println("Token валидный" + jwtservice.isTokenValid(token));
+            System.out.println("Token валидный " + jwtservice.isTokenValid(token));
 
             if (jwtservice.isTokenValid(token)) {
                 Claims claims = jwtservice.extractClaims(token);
@@ -58,7 +58,7 @@ public class JwtFt extends OncePerRequestFilter {
 
 
 
-                var authorities = List.of(new SimpleGrantedAuthority("ROLE" + role));
+                var authorities = List.of(new SimpleGrantedAuthority("ROLE_" + role));
                 var authToken = new UsernamePasswordAuthenticationToken(email, null, authorities);
                 SecurityContextHolder.getContext().setAuthentication(authToken);
             }

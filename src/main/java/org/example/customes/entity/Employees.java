@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -17,8 +19,8 @@ public class Employees {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @OneToOne
+    @JoinColumn(name = "user_id")
     private Users userId;
 
     @Column(name = "full_name", nullable = false)
@@ -32,7 +34,7 @@ public class Employees {
     private String phoneNumber;
 
     @Lob
-    @Column(name = "Photo", nullable = false, columnDefinition = "MEDIUMBLOB") //BLOB расшифроввывается как binaryLargeObject
+    @Column(name = "Photo", columnDefinition = "MEDIUMBLOB") //BLOB расшифроввывается как binaryLargeObject
     private byte[] photo;
 
 
@@ -45,10 +47,8 @@ public class Employees {
     private StatusJob statusJob;
 
     @ManyToOne
-    @JoinColumn(name = "vacation_id", nullable = false)
+    @JoinColumn(name = "vacation_id")
     private Vacations vacationId;
-
-
 
 
 }
