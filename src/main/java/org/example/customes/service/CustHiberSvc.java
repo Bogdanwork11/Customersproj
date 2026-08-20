@@ -1,18 +1,17 @@
 package org.example.customes.service;
 
 import org.example.customes.dto.CustCreateDto;
+import org.example.customes.dto.CustPatchDto;
 import org.example.customes.dto.CustResponseDto;
 import org.example.customes.entity.Departament;
 import org.example.customes.entity.Employees;
 import org.example.customes.entity.StatusJob;
-import org.example.customes.entity.Vacations;
 import org.example.customes.repository.DepartamentRp;
 import org.example.customes.repository.EmployeesRp;
 import org.example.customes.repository.StatusRp;
 import org.springframework.stereotype.Service;
 
 import java.time.temporal.ChronoUnit;
-import java.util.List;
 
 @Service
 public class CustHiberSvc {
@@ -71,7 +70,17 @@ public class CustHiberSvc {
 
     }
     //getmethod
-    public CustResponseDto requestClient(СustCreateDto response)
+    public CustResponseDto requestInfo(Integer id){
+        Employees employees = employeesRepository.findById(id)
+                    .orElseThrow(() -> new RuntimeException("Человек не найден"));
+        return toResponce(employees);
+    }
+    //patchmethod
+    public CustPatchDto updateInfo(Integer id, CustResponseDto request){
+        Employees employees = employeesRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Человек не найден"));
+        return
+    }
 
 }
 
