@@ -30,9 +30,14 @@ public class SecurityCf {
                         .frameOptions(frame -> frame.sameOrigin())
                 )
                 .authorizeHttpRequests(auth -> auth
-
+                        //*****create*****
                         .requestMatchers(HttpMethod.POST,"/customers/create")
-                        .hasRole("DEVELOPER")
+                        .hasAnyRole("DEVELOPER", "DEVOPS")
+                        //*****get*****
+                        .requestMatchers(HttpMethod.GET, "/customers/**")
+                        .hasAnyRole("DEVELOPER", "DEVOPS", "HR", "USER", "RECRUITER", "TEAMLEAD")
+
+
 
                         .requestMatchers("/info").permitAll() //разраешает доступ без аунтефикации осталбное с аутентификацией
                         .requestMatchers("/photo/**").permitAll()

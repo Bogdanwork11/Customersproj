@@ -25,8 +25,8 @@ public class CustHiberSvc {
         this.departamentRepository = departamentRepository;
         this.statusRepository = statusRepository;
     }
-
-    public CustResponseDto create(CustCreateDto request){
+    //postmethod
+    public CustResponseDto createInfo(CustCreateDto request){
         Departament departament = departamentRepository.findById(request.departamentId())
                 .orElseThrow(() -> new RuntimeException("Департамент не найден"));
 
@@ -70,6 +70,8 @@ public class CustHiberSvc {
 
 
     }
+    //getmethod
+    public CustResponseDto requestClient(СustCreateDto response)
 
 }
 
