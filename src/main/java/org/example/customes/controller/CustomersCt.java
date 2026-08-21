@@ -1,6 +1,7 @@
 package org.example.customes.controller;
 
 import java.io.IOException;
+
 import lombok.extern.slf4j.Slf4j;
 import org.example.customes.dto.CustCreateDto;
 import org.example.customes.dto.CustPatchDto;
@@ -21,8 +22,8 @@ public class CustomersCt {
         this.custHiberSvc = custHiberSvc;
     }
 
-    @PostMapping(value = "/create",  consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public CustResponseDto createClient(@RequestPart("data") CustCreateDto request, @RequestPart(value = "photo", required = false) MultipartFile photo)throws IOException {
+    @PostMapping(value = "/create", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public CustResponseDto createClient(@RequestPart("data") CustCreateDto request, @RequestPart(value = "photo", required = false) MultipartFile photo) throws IOException {
         return custHiberSvc.createInfo(request, photo);
     }
 
@@ -31,8 +32,13 @@ public class CustomersCt {
         return custHiberSvc.requestInfo(id);
     }
 
-    @PatchMapping(value = "/{id}")
-    public CustResponseDto updateClient(@PathVariable Integer id, @RequestBody CustPatchDto request) {
-        return custHiberSvc.updateInfo(id, request);
+    @PatchMapping(value = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public CustResponseDto updateClient(@PathVariable Integer id, @RequestPart(value = "data", required = false) CustPatchDto request, @RequestPart(value = "photo", required = false) MultipartFile photo) throws IOException {
+        return custHiberSvc.updateInfo(id, request, photo);
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public CustResponseDto deleteClient(@PathVariable Integer id, CustResponseDto request){
+        return custHiberSvc.deleteInfo(id, request);
     }
 }
