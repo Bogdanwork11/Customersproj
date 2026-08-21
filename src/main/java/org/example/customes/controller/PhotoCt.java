@@ -20,16 +20,13 @@ public class PhotoCt {
 
     @GetMapping(value = "{id}", produces = MediaType.IMAGE_JPEG_VALUE)
     public byte[] photocheck(@PathVariable Integer id){
-        Users user = usersRepository.findById(id).orElse(null);
+        Employees employee = employeesRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Сотрудник не найден"));
 
-        if (user == null){
-            throw new RuntimeException("Увы не получилось найти пользователя");
+        if (employee.getPhoto() == null){
+            throw new RuntimeException("У этого сотрудника нет фото");
         }
-        Employees employee = employeesRepository.findById(id).orElse(null);
 
-        if (employee == null){
-            throw new RuntimeException("Мда тут нет фото :(");
-        }
         return employee.getPhoto();
     }
 
