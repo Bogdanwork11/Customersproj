@@ -29,7 +29,7 @@ public class CustomersCt {
     }
 
     @PatchMapping(value = "/{id}")
-    public CustPatchDto updateClient(@PathVariable Integer id, @RequestBody CustPatchDto request) {
+    public CustResponseDto updateClient(@PathVariable Integer id, @RequestBody CustPatchDto request) {
         return custHiberSvc.updateInfo(id, request);
     }
 }
