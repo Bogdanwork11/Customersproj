@@ -1,5 +1,6 @@
 package org.example.customes.service;
 
+import java.io.IOException;
 import org.example.customes.dto.CustCreateDto;
 import org.example.customes.dto.CustPatchDto;
 import org.example.customes.dto.CustResponseDto;
@@ -10,6 +11,7 @@ import org.example.customes.repository.DepartamentRp;
 import org.example.customes.repository.EmployeesRp;
 import org.example.customes.repository.StatusRp;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.temporal.ChronoUnit;
 
@@ -25,7 +27,7 @@ public class CustHiberSvc {
         this.statusRepository = statusRepository;
     }
     //postmethod
-    public CustResponseDto createInfo(CustCreateDto request){
+    public CustResponseDto createInfo(CustCreateDto request, MultipartFile photo)throws IOException {
         Departament departament = departamentRepository.findById(request.departamentId())
                 .orElseThrow(() -> new RuntimeException("Департамент не найден"));
 
@@ -38,6 +40,9 @@ public class CustHiberSvc {
         employees.setBirthDate(request.birthDate());
         employees.setDepartamentId(departament);
         employees.setStatusJob(statusJob);
+        if (photo != null){
+            employees.setPhoto(photo.getBytes());
+        }
 
         Employees save = employeesRepository.save(employees);
 
