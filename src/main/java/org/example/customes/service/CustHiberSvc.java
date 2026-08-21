@@ -76,10 +76,50 @@ public class CustHiberSvc {
         return toResponce(employees);
     }
     //patchmethod
-    public CustPatchDto updateInfo(Integer id, CustResponseDto request){
+    public CustResponseDto updateInfo(Integer id, CustPatchDto request){
         Employees employees = employeesRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Человек не найден"));
-        return
+        if(request.fullname() != null) {
+            employees.setFullName(request.fullname());
+        }
+        if(request.phoneNumber() != null){
+            employees.setPhoneNumber(request.phoneNumber());
+        }
+        if(request.birthDate() != null){
+            employees.setBirthDate(request.birthDate());
+        }
+        if(request.departamentId() != null){
+            Departament departament = departamentRepository.findById(request.departamentId()).orElseThrow(() -> new RuntimeException("Департамент не найден"));
+            employees.setDepartamentId(departament);
+        }
+        if(request.statusJobId()!= null){
+            StatusJob statusJob = statusRepository.findById(request.statusJobId()).orElseThrow(() -> new RuntimeException("Работа не найдена"));
+            employees.setStatusJob(statusJob);
+        }
+        Employees saved = employeesRepository.save(employees);
+        return toResponce1(saved);
+    }
+    private CustResponseDto toResponce1(Employees employees){
+        String departamentTitle = employees.getDepartamentId().getTitleDp();
+        String statusTitle = employees.getDepartamentId().getTitleDp();
+
+        int daysLeft = 28;
+        if (employees.getVacationId() != null){
+            long used = ChronoUnit.DAYS.between(
+                    employees.getVacationId().getStartDate(),
+                    employees.getVacationId().getEndDate());
+                    daysLeft = 28 - (int) used;
+        }
+        return new CustResponseDto(
+                employees.getId(),
+                employees.getFullName(),
+                employees.getBirthDate(),
+                employees.getPhoneNumber(),
+                departamentTitle,
+                statusTitle,
+                daysLeft,
+                "/photo/" + employees.getId()
+        );
     }
 
 }
